@@ -5,10 +5,15 @@ class Flight < ApplicationRecord
   validates :start_time, presence: true
   validate :validate_end_time_is_after_start_time
   validate :validate_departure_and_arrival_airports_are_different
+
   belongs_to :departure_airport, class_name: "Airport", foreign_key: "departure_airport_id"
   belongs_to :arrival_airport, class_name: "Airport", foreign_key: "arrival_airport_id"
 
   private
+
+  def start_time_formatted
+    start_time.strftime("%m/%d/%y")
+  end
 
   def validate_departure_and_arrival_airports_are_different
     if departure_airport_id == arrival_airport_id

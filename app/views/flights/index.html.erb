@@ -1,0 +1,60 @@
+<h1>Home</h1>
+
+<details>
+  <summary role="button">Search</summary>
+  <%= form_tag(flights_path, method: :get) do %>
+    <fieldset class="grid">
+      <label>Departure Airport
+        <%= select_tag(
+          "Departure Airport",
+          options_for_select(@departure_airport_options),
+          id: "departure_airport_select"
+        ) %>
+      </label>
+      <label>Arrival Airport
+        <%= select_tag(
+          "Arrival Airport",
+          options_for_select(@arrival_airport_options),
+          id: "arrival_airport_select"
+        ) %>
+      </label>
+    </fieldset>
+    <fieldset class="grid">
+      <label>Depart Time
+        <%= select_tag(
+          "Depart Time",
+          options_for_select(@date_options),
+          id: "depart_time_select"
+        ) %>
+      </label>
+      <label>Number of Passengers
+        <%= select_tag(
+          "Number of Passengers",
+          options_for_select([[1, 1], [2, 2], [3, 3], [4, 4]]),
+          id: "number_of_passengers_select"
+        ) %>
+      </label>
+    </fieldset>
+    <%= submit_tag ("Search") %>
+  <% end %>
+
+</details>
+
+<table>
+  <thead>
+    <tr>
+      <th scope="col">Depart from</th>
+      <th scope="col">Arrive at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @flights.each do |flight| %>
+      <tr>
+        <td><%= flight.departure_airport.code %>
+          <%= flight.start_time.strftime("%H:%M:%S %d/%m/%y") %></td>
+        <td><%= flight.arrival_airport.code %>
+          <%= flight.end_time.strftime("%H:%M:%S %d/%m/%y") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

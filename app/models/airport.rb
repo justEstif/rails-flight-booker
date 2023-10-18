@@ -1,8 +1,12 @@
 class Airport < ApplicationRecord
-  before_validation do |airport|
-    if airport && airport.code.is_a?(String)
-      airport.code = airport.code.upcase
-    end
-  end
+  before_validation :upcase_airport_code, on: [:create, :update]
+
   validates :code, presence: true, uniqueness: true
+
+  private
+
+  def upcase_airport_code
+    return if code.nil? || !code.is_a?(String)
+    self.code = code.upcase
+  end
 end

@@ -1,0 +1,35 @@
+<%= form_tag(flights_path, method: :get) do %>
+  <fieldset>
+    <%= label_tag("search[departure_airport]", "Departure Airport") %>
+    <%= select_tag(
+      "search[departure_airport]",
+      options_for_select(departure_airport_options),
+      id: "departure_airport_select"
+    ) %>
+  </fieldset>
+  <fieldset>
+    <%= label_tag("search[arrival_airport]", "Arrival Airport") %>
+    <%= select_tag(
+      "search[arrival_airport]",
+      options_for_select(arrival_airport_options),
+      id: "arrival_airport_select"
+    ) %>
+  </fieldset>
+  <fieldset>
+    <%= label_tag("search[date_time]", "Depart Time") %>
+    <%= select_tag(
+      "search[date_time]",
+      options_for_select(date_options),
+      id: "date_time_select"
+    ) %>
+  </fieldset>
+  <fieldset>
+    <%= label_tag("search[number_of_passengers]", "Number of Passengers") %>
+    <%= select_tag(
+      "search[number_of_passengers]",
+      options_for_select([[1, 1], [2, 2], [3, 3], [4, 4]]),
+      id: "number_of_passengers_select"
+    ) %>
+  </fieldset>
+  <%= submit_tag("Search") %>
+<% end %>

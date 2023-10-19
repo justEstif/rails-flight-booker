@@ -24,13 +24,13 @@
     ) %>
   </fieldset>
   <fieldset>
-    <%= label_tag("search[number_of_passengers]", "Number of Passengers") %>
+    <%= label_tag("search[number_of_tickets]", "Number of Tickets") %>
     <%= select_tag(
       "search[number_of_passengers]",
       options_for_select(
-        [["Select a number of passengers", nil], [1, 1], [2, 2], [3, 3], [4, 4]]
+        [["Select a number of tickets", nil], [1, 1], [2, 2], [3, 3], [4, 4]]
       ),
-      id: "number_of_passengers_select"
+      id: "number_of_tickets_select"
     ) %>
   </fieldset>
   <%= submit_tag("Search") %>

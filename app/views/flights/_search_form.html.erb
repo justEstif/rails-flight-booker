@@ -3,7 +3,7 @@
     <%= label_tag("search[departure_airport]", "Departure Airport") %>
     <%= select_tag(
       "search[departure_airport]",
-      options_for_select(departure_airport_options, include_blank: true),
+      options_for_select(departure_airport_options),
       id: "departure_airport_select"
     ) %>
   </fieldset>
@@ -27,9 +27,12 @@
     <%= label_tag("search[number_of_passengers]", "Number of Passengers") %>
     <%= select_tag(
       "search[number_of_passengers]",
-      options_for_select([[1, 1], [2, 2], [3, 3], [4, 4]]),
+      options_for_select(
+        [["Select a number of passengers", nil], [1, 1], [2, 2], [3, 3], [4, 4]]
+      ),
       id: "number_of_passengers_select"
     ) %>
   </fieldset>
   <%= submit_tag("Search") %>
+  <%= submit_tag("Clear Form", type: "reset") %>
 <% end %>

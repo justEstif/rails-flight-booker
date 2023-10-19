@@ -1,9 +1,9 @@
 class FlightsController < ApplicationController
   def index
-    @departure_airport_options = Airport.joins(:departing_flights).distinct.pluck(:code, :id)
-    @arrival_airport_options = Airport.joins(:arriving_flights).distinct.pluck(:code, :id)
+    @departure_airport_options = [["Select an airport", nil]] + Airport.joins(:departing_flights).distinct.pluck(:code, :id)
+    @arrival_airport_options = [["Select an airport", nil]] + Airport.joins(:arriving_flights).distinct.pluck(:code, :id)
     @flights = Flight.search(search_params)
-    @date_options = @flights.distinct.pluck(:start_time, :start_time)
+    @date_options = [["Select a date", nil]] + @flights.distinct.pluck(:start_time, :start_time)
   end
 
   private

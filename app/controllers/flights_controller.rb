@@ -1,15 +1,18 @@
 class FlightsController < ApplicationController
   def index
-    @flights = Flight.search(params[:search])
+    @departure_airport_options = Airport.joins(:departing_flights).distinct.pluck(:code, :id)
+    @arrival_airport_options = Airport.joins(:arriving_flights).distinct.pluck(:code, :id)
+    @flights = Flight.search(search_params)
     @date_options = @flights.distinct.pluck(:start_time, :start_time)
-    # get the codes of airports that have departing or arrival flights
-    @departure_airport_options = Airport.joins(:departing_flights).distinct.pluck(:code, :code)
-    @arrival_airport_options = Airport.joins(:arriving_flights).distinct.pluck(:code, :code)
   end
 
   private
 
   def search_params
-    params.require(:flights).permit(:departure_airport, :arrival_airport, :start_time)
+    if params[:search].present?
+      params.require(:search).permit(:departure_airport, :arrival_airport, :date_time)
+    else
+      ActionController::Parameters.new # Return an empty parameter object or handle it as needed
+    end
   end
 end

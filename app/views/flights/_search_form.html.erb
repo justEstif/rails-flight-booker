@@ -3,7 +3,7 @@
     <%= label_tag("search[departure_airport]", "Departure Airport") %>
     <%= select_tag(
       "search[departure_airport]",
-      options_for_select(departure_airport_options),
+      options_for_select(departure_airport_options, include_blank: true),
       id: "departure_airport_select"
     ) %>
   </fieldset>

@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_19_102453) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_20_105632) do
   create_table "airports", force: :cascade do |t|
     t.string "code", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["code"], name: "index_airports_on_code", unique: true
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.integer "number_of_tickets", default: 1
+    t.integer "passengers_id", null: false
+    t.integer "flights_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["flights_id"], name: "index_bookings_on_flights_id"
+    t.index ["passengers_id"], name: "index_bookings_on_passengers_id"
   end
 
   create_table "flights", force: :cascade do |t|
@@ -30,6 +40,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_19_102453) do
     t.index ["departure_airport_id"], name: "index_flights_on_departure_airport_id"
   end
 
+  create_table "passengers", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_passengers_on_email", unique: true
+  end
+
+  add_foreign_key "bookings", "flights", column: "flights_id"
+  add_foreign_key "bookings", "passengers", column: "passengers_id"
   add_foreign_key "flights", "airports", column: "arrival_airport_id"
   add_foreign_key "flights", "airports", column: "departure_airport_id"
 end

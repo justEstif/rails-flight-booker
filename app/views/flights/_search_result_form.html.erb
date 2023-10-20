@@ -1,4 +1,4 @@
-<%= form_with(url: new_flight_path) do |f| %>
+<%= form_with(url: new_booking_path, method: :get) do |f| %>
   <%= f.hidden_field :number_of_tickets, value: number_of_tickets %>
   <%= field_set_tag do %>
     <legend>Select a flight:</legend>

@@ -6,8 +6,11 @@ class Flight < ApplicationRecord
   validate :validate_end_time_is_after_start_time
   validate :validate_departure_and_arrival_airports_are_different
 
-  belongs_to :departure_airport, class_name: 'Airport', foreign_key: 'departure_airport_id'
-  belongs_to :arrival_airport, class_name: 'Airport', foreign_key: 'arrival_airport_id'
+  belongs_to :departure_airport, class_name: "Airport", foreign_key: "departure_airport_id"
+  belongs_to :arrival_airport, class_name: "Airport", foreign_key: "arrival_airport_id"
+
+  has_many :bookings
+  has_many :passengers, through: :bookings
 
   def self.search(search)
     return [] unless search.present?
@@ -19,7 +22,7 @@ class Flight < ApplicationRecord
 
     flights = flights.where(departure_airport:) if departure_airport.present?
     flights = flights.where(arrival_airport:) if arrival_airport.present?
-    flights = flights.where('start_time >= ?', DateTime.parse(date_time)) if date_time.present?
+    flights = flights.where("start_time >= ?", DateTime.parse(date_time)) if date_time.present?
     flights
   end
 
@@ -28,11 +31,11 @@ class Flight < ApplicationRecord
   def validate_departure_and_arrival_airports_are_different
     return unless departure_airport_id == arrival_airport_id
 
-    errors.add(:departure_airport, 'must not be the same as the arrival airport')
+    errors.add(:departure_airport, "must not be the same as the arrival airport")
   end
 
   def validate_end_time_is_after_start_time
-    errors.add(:end_time, 'must be after the start time') unless end_time.after?(start_time)
+    errors.add(:end_time, "must be after the start time") unless end_time.after?(start_time)
   end
 
   def calculate_duration

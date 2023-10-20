@@ -1,32 +1,22 @@
 <h1>Home</h1>
 
-<details>
-  <summary role="button">Search</summary>
-  <%= render "search_form",
-  departure_airport_options: @departure_airport_options,
-  date_options: @date_options,
-  arrival_airport_options: @arrival_airport_options %>
-</details>
+<section>
+  <details>
+    <summary role="button">Search</summary>
+    <%= render "search_form",
+    departure_airport_options: @departure_airport_options,
+    date_options: @date_options,
+    arrival_airport_options: @arrival_airport_options %>
+  </details>
+</section>
 
-<table>
-  <thead>
-    <tr>
-      <th scope="col">Depart from</th>
-      <th scope="col">Arrive at</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @flights.each do |flight| %>
-      <tr>
-        <td>
-          <%= flight.departure_airport.code %>
-          <%= flight.start_time.strftime("%H:%M:%S %d/%m/%y") %>
-        </td>
-        <td>
-          <%= flight.arrival_airport.code %>
-          <%= flight.end_time.strftime("%H:%M:%S %d/%m/%y") %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<% if @flights.present? %>
+  <section>
+    <h2>Search Results</h2>
+    <%= render "search_result_form",
+    search_results: @flights,
+    number_of_tickets: @number_of_tickets %>
+  </section>
+<% else %>
+  <p>Welcome! Please search for your flight.</p>
+<% end %>

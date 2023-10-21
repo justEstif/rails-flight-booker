@@ -1,25 +1,18 @@
 <%= form_with(url: new_booking_path, method: :get) do |f| %>
-  <%= f.hidden_field :number_of_tickets, value: number_of_tickets %>
+  <%= f.hidden_field :number_of_tickets, value: (number_of_tickets || 1) %>
   <%= field_set_tag do %>
     <legend>Select a flight:</legend>
-    <% search_results.each_slice(2) do |flight_1, flight_2| %>
-      <div class="grid">
-        <label>
-          <%= f.radio_button :selected_flight, flight_1.id %>
-          <%= flight_1.departure_airport.code %>
-          to
-          <%= flight_1.arrival_airport.code %>
-          <%= flight_1.start_time.strftime("%H:%M:%S %d/%m/%y") %>
-        </label>
-        <label>
-          <%= f.radio_button :selected_flight, flight_2.id %>
-          <%= flight_2.departure_airport.code %>
-          to
-          <%= flight_2.arrival_airport.code %>
-          <%= flight_2.start_time.strftime("%H:%M:%S %d/%m/%y") %>
-        </label>
-      </div>
+
+    <% search_results.each do |flight| %>
+      <label>
+        <%= f.radio_button :selected_flight, flight.id %>
+        <%= flight.departure_airport.code %>
+        to
+        <%= flight.arrival_airport.code %>
+        <%= flight.start_time.strftime("%H:%M:%S %d/%m/%y") %>
+      </label>
     <% end %>
+
   <% end %>
   <%= f.submit "Book" %>
 <% end %>

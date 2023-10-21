@@ -1,10 +1,21 @@
-<h1>Hello</h1>
-Flight:
-<%= @booking.flight.id %>
-Number of Tickets:
-<%= @booking.number_of_tickets %>
+<p>
+  <%= @booking.flight.departure_airport.code %>
+  to
+  <%= @booking.flight.arrival_airport.code %>
+  <%= @booking.flight.start_time.strftime("%H:%M:%S %d/%m/%y") %>
+</p>
 
-<form>
-  <label>Enter name</label>
-  <label>Enter emai</label>
-</form>
+<%= form_with model: @booking do |f| %>
+
+  <%= f.hidden_field :flight_id, value: @booking.flight.id %>
+  <%= f.hidden_field :number_of_tickets, value: @booking.number_of_tickets %>
+
+  <%= f.fields_for @booking.build_passenger do |passenger_fields| %>
+    <%= passenger_fields.label :name %>
+    <%= passenger_fields.text_field :name, placeholder: "Enter name" %>
+    <%= passenger_fields.label :email %>
+    <%= passenger_fields.text_field :email, placeholder: "Enter email" %>
+  <% end %>
+
+  <%= f.submit %>
+<% end %>

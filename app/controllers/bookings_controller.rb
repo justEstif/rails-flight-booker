@@ -1,15 +1,25 @@
 class BookingsController < ApplicationController
   def new
-    @booking = Booking.new(number_of_tickets: new_booking_params[:number_of_tickets], flight_id: new_booking_params[:selected_flight])
+    @booking = Booking.new(new_booking_params)
   end
 
   def create
-    @booking = Booking.new()
+    @booking = Booking.new(create_booking_params)
+
+    if @booking.save
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   private
 
   def new_booking_params
-    params.permit(:number_of_tickets, :selected_flight)
+    params.permit(:number_of_tickets, :flight_id)
+  end
+
+  def create_booking_params
+    params.require(:booking).permit(:number_of_tickets, :flight_id, passenger_attributes: [:name, :email])
   end
 end

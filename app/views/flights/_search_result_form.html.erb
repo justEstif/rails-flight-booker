@@ -5,7 +5,7 @@
 
     <% search_results.each do |flight| %>
       <label>
-        <%= f.radio_button :selected_flight, flight.id %>
+        <%= f.radio_button :flight_id, flight.id %>
         <%= flight.departure_airport.code %>
         to
         <%= flight.arrival_airport.code %>

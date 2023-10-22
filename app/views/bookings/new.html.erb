@@ -10,7 +10,7 @@
   <%= f.hidden_field :flight_id, value: @booking.flight.id %>
   <%= f.hidden_field :number_of_tickets, value: @booking.number_of_tickets %>
 
-  <%= f.fields_for @booking.build_passenger do |passenger_fields| %>
+  <%= f.fields_for :passenger do |passenger_fields| %>
     <%= passenger_fields.label :name %>
     <%= passenger_fields.text_field :name, placeholder: "Enter name" %>
     <%= passenger_fields.label :email %>

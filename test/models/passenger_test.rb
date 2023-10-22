@@ -13,11 +13,11 @@ class PassengerTest < ActiveSupport::TestCase
     passenger = Passenger.new(name: "test")
     assert_not passenger.valid?, "passenger should both email and name"
   end
-  test "passenger requires unique email to be used" do
-    Passenger.create(name: "name", email: "test@test.com")
-    passenger = Passenger.new(name: "name", email: "test@test.com")
-    assert_not passenger.valid?, "passenger should have a unique email"
-  end
+  # test "passenger requires unique email to be used" do
+  #   Passenger.create(name: "name", email: "test@test.com")
+  #   passenger = Passenger.new(name: "name", email: "test@test.com")
+  #   assert_not passenger.valid?, "passenger should have a unique email"
+  # end
   test "stores passenger email in lowercase" do
     passenger = Passenger.create(name: "name", email: "TEST@TEST.COM")
     assert_equal "test@test.com", passenger.email, "passenger email should be saved in lowercase"

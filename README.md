@@ -1,24 +1,9 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+I wrote unit tests, and made nested forms, and made more use of Active
+Records(migrations, seeding, testing, fixtures).
 
-Things you may want to cover:
+## Points of Improvement
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Add form error UI
+- Integration Testing
